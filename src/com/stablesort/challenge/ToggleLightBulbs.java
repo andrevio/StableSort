@@ -24,18 +24,18 @@ import com.stablesort.fenwick.FenwickTreeXor;
  */
 public class ToggleLightBulbs {
 	
-	private final FenwickTreeXor t;
+	private final FenwickTreeXor tree;
 	
-	public ToggleLightBulbs(boolean[] bulbs) {
-		this.t = new FenwickTreeXor(bulbs);
+	public ToggleLightBulbs(boolean[] ar) {
+		this.tree = new FenwickTreeXor(ar);
 	}
 	
 	public boolean isOn(int i) {
-		return t.xor(i);
+		return tree.xor(i);
 	}
 	
 	public void toggle(int i, int j) {
-		t.update(i, true);
-		t.update(j+1, true);
+		tree.update(i, true);
+		tree.update(j+1, true);
 	}
 }
