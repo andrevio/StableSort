@@ -3,7 +3,7 @@ package com.stablesort.segtree;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.function.BiFunction;
+import java.util.function.BinaryOperator ;
 
 /**
  * This implementation works on any binary associate function, such as min/max/addition/multiplication/xor/etc.
@@ -20,16 +20,16 @@ import java.util.function.BiFunction;
 public class SegmentTree<T> {
 	private final List<T> tree;
 	private final int n; // input array length
-	private final BiFunction<T, T, T> bf;
+	private final BinaryOperator<T> f;
 	
 	/**
 	 * @param ar
-	 * @param bf - any binary associate function, such as min/max/addition/multiplication/xor/etc. For example: (a, b) -> Math.max(a, b)
+	 * @param f - any binary associate function, such as min/max/addition/multiplication/xor/etc. For example: (a, b) -> Math.max(a, b)
 	 */
-	public SegmentTree(List<T> ar, BiFunction<T, T, T> bf){
+	public SegmentTree(List<T> ar, BinaryOperator<T> f){
 		n = ar.size();		
 		tree = new ArrayList<>(2*n);
-		this.bf = bf;
+		this.f = f;
 		
 		// make space for it so that we don't have to do inserts
 		for (int i = 0; i < n; i++) {
@@ -42,7 +42,7 @@ public class SegmentTree<T> {
 		}
 						
 		for (int i = n - 1; i > 0; i--) {			
-			tree.set(i, bf.apply(tree.get(2 * i), tree.get(2 * i + 1)));
+			tree.set(i, f.apply(tree.get(2 * i), tree.get(2 * i + 1)));
 		}
 	}
 	
@@ -56,7 +56,7 @@ public class SegmentTree<T> {
         
         while (i > 1) {
             i >>= 1; // shift right is the same as divide by 2
-            tree.set(i, bf.apply(tree.get(2 * i), tree.get(2 * i + 1)));
+            tree.set(i, f.apply(tree.get(2 * i), tree.get(2 * i + 1)));
         }
     }
 
@@ -80,12 +80,12 @@ public class SegmentTree<T> {
 
         while (from < to) {
             if ((from & 1) == 1) { // 'from' is odd, so it is the right child of its parent, then interval includes node 'from' but doesn't include its parent
-                q = q == null ? tree.get(from) : bf.apply(q, tree.get(from));
+                q = q == null ? tree.get(from) : f.apply(q, tree.get(from));
                 from++;
             }
             if ((to & 1) == 1) { // 'to' is odd, so it's the right child of its parent, then might as well use the parent
                 to--;
-                q = q == null ? tree.get(to) : bf.apply(q, tree.get(to));
+                q = q == null ? tree.get(to) : f.apply(q, tree.get(to));
                                 
             }
             from >>= 1; // shift right is the same as divide by 2 but a little faster
@@ -97,7 +97,7 @@ public class SegmentTree<T> {
     
 	public static void main(String[] args) {
 		List<Double> ar = Arrays.asList(6.1, 10.5, 5.2, 2.0, 7.1, 1.3, 0.3, 9.2);
-		BiFunction<Double, Double, Double> f = (a, b) -> Math.max(a, b);
+		BinaryOperator<Double> f = (a, b) -> Math.max(a, b);
 		SegmentTree<Double> tree = new SegmentTree<Double>(ar, f);
 		System.out.println("q=" + tree.query(2,  8));
 		
