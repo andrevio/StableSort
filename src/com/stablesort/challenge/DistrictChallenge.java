@@ -8,7 +8,7 @@ import com.stablesort.fenwick.FenwickTreeXor;
  * toggle(i, j) - to toggle all of the districts in the range form i to j
  * But here is the kicker - both methods should run in less than O(n) time complexity.
  * ----------------------------------------------------------------------------------------
- * Originally this problem was states here:
+ * Originally this problem was stated here:
  * https://www.careercup.com/question?id=5668664122540032
  * Given n light bulbs, write two methods.
  * isOn(i) to determine if a light bulb is on
