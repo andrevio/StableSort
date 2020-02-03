@@ -1,7 +1,6 @@
 package com.stablesort.fenwick;
 
 import java.util.Arrays;
-import java.util.Random;
 
 /**
  * Fenwick Tree (Binary Index Tree) implementation that uses XOR for its range operation

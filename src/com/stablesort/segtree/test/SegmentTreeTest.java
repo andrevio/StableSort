@@ -94,6 +94,10 @@ public class SegmentTreeTest {
 				System.out.println(Arrays.toString(ar));
 				throw new RuntimeException("Mismatch: [" + from + " to " + to + "] --> " + dumbMax(ar, from, to) + " <> " + st.query(from, to));
 			}
+			
+			// also make an update
+			ar[from] = from;
+			st.update(from, from);
 		}
 		
 		System.out.println("testSegmentTree: SUCCESS");
@@ -124,6 +128,9 @@ public class SegmentTreeTest {
 				System.out.println(Arrays.toString(ar));
 				throw new RuntimeException("Mismatch: [" + from + " to " + to + "] --> " + dumbMax(ar, from, to) + " <> " + stMax.max(from, to));
 			}
+			
+			ar[from] = from; // make a 'random' update
+			stMax.update(from, from);
 		}
 		
 		System.out.println("SUCCESS");
@@ -154,7 +161,7 @@ public class SegmentTreeTest {
 		int dummy = 0; // to make sure the compiler does not over-smart us and actually call the function
 		
 		/*
-		 * Randomly pick intervals and check if the max calculated using the Segment Tree matches to that of linear search max.
+		 * Randomly pick intervals and check if the max calculated using the Segment Tree matches with linear search.
 		 */
 		for (int i = 0; i < numTrials; i++) {
 			
@@ -184,8 +191,9 @@ public class SegmentTreeTest {
 	public static void main(String[] args) {
 		StopWatch sw = new StopWatch();
 		SegmentTreeTest test = new SegmentTreeTest();
-//		test.testSegmentTree();
-		test.comparePerf();
+		test.testSegmentTree();
+//		test.testSegmentTreeMax();
+//		test.comparePerf();
 		System.out.println(sw);
 	}
 

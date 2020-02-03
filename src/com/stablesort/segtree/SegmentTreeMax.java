@@ -26,16 +26,23 @@ public class SegmentTreeMax {
 	}
 	
 	/**
-	 * @param i - index to original array
+	 * @param i - index to original array, inclusive
 	 * @param value - new value to be saved off
 	 */
 	public void update(int i, int value) {
         i += n;
         tree[i] = value;
+        int newValue;
         
         while (i > 1) {
             i >>= 1; // shift right is the same as divide by 2
-            tree[i] = Math.max(tree[2 * i],tree[2 * i + 1]);
+            newValue = Math.max(tree[2 * i],tree[2 * i + 1]);
+            
+            if (tree[i] != newValue) {
+            	tree[i] = newValue;	
+            } else {
+            	return; // since no update is made 
+            }
         }
     }
 

@@ -53,10 +53,17 @@ public class SegmentTree<T> {
 	public void update(int i, T value) {
         i += n;
         tree.set(i, value);
+        T newValue;
         
         while (i > 1) {
             i >>= 1; // shift right is the same as divide by 2
-            tree.set(i, f.apply(tree.get(2 * i), tree.get(2 * i + 1)));
+            newValue = f.apply(tree.get(2 * i), tree.get(2 * i + 1));
+            
+            if (!newValue.equals(tree.get(i))) {
+            	tree.set(i, newValue);	
+            } else {
+            	return; // since no update to propagate up the tree
+            }
         }
     }
 
