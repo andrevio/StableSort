@@ -7,6 +7,7 @@ import java.util.Random;
 
 import com.stablesort.segtree.SegmentTree;
 import com.stablesort.segtree.SegmentTreeMax;
+import com.stablesort.util.Rand;
 import com.stablesort.util.StopWatch;
 
 /*
@@ -16,35 +17,7 @@ public class SegmentTreeTest {
 	
 	int arLen = 10_000_000;
 	
-	/**
-	 * creates an array of specified length, populated with random numbers in the range from 0 to len.
-	 * @param len
-	 * @return
-	 */
-	private int[] getRandIntAr(int len) {
-		Random r = new Random();
-		int[] ar = new int[len];
-		
-		for (int i = 0; i < ar.length; i++) {
-			ar[i] = r.nextInt(arLen); // cap the size just for easier readability
-		}
-		return ar;
-	}
 	
-	/**
-	 * creates a List of specified length, populated with random numbers in the range from 0 to len.
-	 * @param len
-	 * @return
-	 */
-	private List<Integer> getRandIntList(int len) {
-		Random r = new Random();
-		List<Integer> ar = new ArrayList<>(len);
-		
-		for (int i = 0; i < len; i++) {
-			ar.add(r.nextInt(arLen)); // cap the size just for easier readability
-		}
-		return ar;
-	}
 	
 	/**
 	 * linear running time function, used for checking for correctness and as a performance reference
@@ -68,7 +41,7 @@ public class SegmentTreeTest {
 	 * tests SegmentTree for correctness against the dumbMax() function
 	 */
 	public void testSegmentTree() {				
-		int[] ar = getRandIntAr(arLen);
+		int[] ar = Rand.getRandIntAr(arLen);
 		List<Integer> l = new ArrayList<>(arLen);
 		for (int i = 0; i < ar.length; i++) {
 			l.add(ar[i]);
@@ -107,7 +80,7 @@ public class SegmentTreeTest {
 	 * tests SegmentTreeMax for correctness against the dumbMax() function
 	 */
 	public void testSegmentTreeMax() {				
-		int[] ar = getRandIntAr(arLen);
+		int[] ar = Rand.getRandIntAr(arLen);
 		SegmentTreeMax stMax = new SegmentTreeMax(ar);
 		Random r = new Random();
 		
@@ -140,7 +113,7 @@ public class SegmentTreeTest {
 	 * checks to see how fast do SegmentTree and SegmentTreeMax operate
 	 */
 	public void comparePerf() {
-		int[] ar = getRandIntAr(arLen);		
+		int[] ar = Rand.getRandIntAr(arLen);		
 		List<Integer> l = new ArrayList<>(arLen);
 		for (int i = 0; i < ar.length; i++) {
 			l.add(ar[i]);
