@@ -1,7 +1,6 @@
 package com.stablesort.stringmatch;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -9,27 +8,39 @@ import java.util.List;
  * @author Andre Violentyev
  */
 public class KnuthMorrisPratt {
-	
 	/**
 	 * creates an array of length pattern.length()+1
 	 * @param pattern "abcxxxabcyyy"
 	 * @return [-1, 0, 0, 0, 0, 0, 0, 1, 2, 3, 0, 0, 0]
 	 */
-	static int[] calcPrefixLen(String pattern) {
-		int prefixLen = 0;
+	public static int[] calcPrefixLen(String pattern) {
 		int patternLen = pattern.length();
+		int[] ar = new int[patternLen + 1];
+		ar[0] = -1;
+		ar[1] = 0;
+
+		int left = 0;
+		int right = 1;
 		
-		int[] ar = new int[patternLen+1];		
-		ar[0] = -1; 
+		while (right < patternLen) {			
+			if (pattern.charAt(left) == pattern.charAt(right)) { 
+				left++;
+				right++;
+				ar[right] = left;
 				
-		for (int i = 1; i < patternLen; i++) {			
-			if (pattern.charAt(i) == pattern.charAt(prefixLen)) {
-				prefixLen++;				
+			} else if (left > 0) {
+				/*
+				 * Move 'left' backwards. Note that we do not increment right here.
+				 */
+				left = ar[left];
+				
 			} else {
-				prefixLen = 0;
+				/*
+				 * 'left' reached 0, so set prefix length to zero and more forward
+				 */
+				right++;
+				ar[right] = 0;
 			}
-			
-			ar[i+1] = prefixLen;
 		}
 		
 		return ar;
@@ -72,13 +83,14 @@ public class KnuthMorrisPratt {
 		
 		return matches;
 	}
-	
+	 
 	public static void main(String[] args) {
-		String text = "abbbbbbbbbbbb";
-		String pattern = "abbbc";
+		String text = "---abcxxxab------abcxxxabcy---";
+		String pattern = "abcxxxabcy";
+		
 		System.out.println("text="+text);
 		System.out.println("pattern=" + pattern);
-		System.out.println(Arrays.toString(calcPrefixLen(pattern)));
+		
 		System.out.println(search(text, pattern));
 	}
 }
