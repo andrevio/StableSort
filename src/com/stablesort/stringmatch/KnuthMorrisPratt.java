@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * KMP string searching algorithm implementation. Video explanation: https://www.youtube.com/watch?v=8xWrNQOC1Ts
+ * KMP string searching algorithm implementation. Video explanation: https://www.youtube.com/watch?v=EL4ZbRF587g
  * @author Andre Violentyev
  */
 public class KnuthMorrisPratt {
