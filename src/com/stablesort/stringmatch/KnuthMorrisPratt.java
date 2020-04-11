@@ -19,27 +19,21 @@ public class KnuthMorrisPratt {
 		ar[0] = -1;
 		ar[1] = 0;
 
-		int left = 0;
-		int right = 1;
+		int prefixLen = 0;
+		int i = 1;
 		
-		while (right < patternLen) {			
-			if (pattern.charAt(left) == pattern.charAt(right)) { 
-				left++;
-				right++;
-				ar[right] = left;
+		while (i < patternLen) {			
+			if (pattern.charAt(prefixLen) == pattern.charAt(i)) { 
+				prefixLen++;
+				i++;
+				ar[i] = prefixLen;
 				
-			} else if (left > 0) {
-				/*
-				 * Move 'left' backwards. Note that we do not increment right here.
-				 */
-				left = ar[left];
+			} else if (prefixLen > 0) {
+				prefixLen = ar[prefixLen]; // note  that we do not increment i here
 				
 			} else {
-				/*
-				 * 'left' reached 0, so set prefix length to zero and more forward
-				 */
-				right++;
-				ar[right] = 0;
+				i++;
+				ar[i] = 0; // 'prefixLen' reached 0, so save that into ar[] and move forward
 			}
 		}
 		
