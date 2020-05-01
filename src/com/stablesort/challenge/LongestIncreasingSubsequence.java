@@ -40,38 +40,41 @@ public class LongestIncreasingSubsequence {
 			return i + "";
 		}
 	}
-
+	
 	/**
 	 * we examine only the top most card of each pile, looking for a card that is greater or equal to the one at hand
 	 * 
 	 * @param piles
 	 * @param i
-	 * @return -1 if no pile can host 
+	 * @return -1 if no pile can host
 	 */
-	private int binarySearchHostPileIdx(List<List<Card>> piles, int i) {
-		int low = 0;
-		int high = piles.size()-1;
-		int mid = high;
-		
-		if (piles.isEmpty()) return -1;
-		
-		while (low < high && low < mid) {
-			List<Card> lPile = piles.get(mid);
-			
-			// if the top card value is greater than i
-			if (lPile.get(lPile.size()-1).i >= i) {
-				low = mid; // found a host, move lower boundary up
-			
-			} else {
-				high = mid; // move higher boundary down
-			}
-			
-			mid = (low+high) >> 2;
-		}
-		
-		List<Card> lPile = piles.get(low);
-		return lPile.get(lPile.size()-1).i >= i ? low : -1; 
-	}
+	int binarySearchHostPileIdx(List<List<Card>> piles, int i) { 
+        int l = 0;
+        int r = piles.size() - 1; 
+        int m = -1;
+        
+        if (piles.isEmpty()) return -1;
+        
+        while (l <= r) { 
+            m = l + (r - l) / 2; 
+            
+            List<Card> pile = piles.get(m);
+            Card c = pile.get(pile.size()-1); // get the top card from this pile
+  
+            if (c.i == i) return m; // exact match 
+  
+            if (c.i < i) {
+                l = m + 1; // ignore left half
+            } else {
+                r = m - 1; // ignore right half
+            }
+        } 
+  
+        if (l >= piles.size()) return -1;
+        
+        List<Card> lPile = piles.get(l);
+		return lPile.get(lPile.size()-1).i >= i ? l : -1; 
+    } 
 	
 	/**
 	 * to retrieve the sub-sequence, start at the right most pile, pick a card (any one of those would do)
@@ -128,6 +131,6 @@ public class LongestIncreasingSubsequence {
 	public static void main(String[] args) {
 		int[] ar = {10, 5, 8, 3, 9, 4, 12, 11};
 		LongestIncreasingSubsequence lis = new LongestIncreasingSubsequence();
-		System.out.println(Arrays.toString(lis.run(ar)));
+		System.out.println(Arrays.toString(lis.run(ar))); // [5, 8, 9, 12 or 11]
 	}
 }
