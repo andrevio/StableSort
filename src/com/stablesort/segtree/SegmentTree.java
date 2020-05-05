@@ -69,11 +69,11 @@ public class SegmentTree<T> {
 
 	/**
 	 * Starts at the bottom of the tree and works its way up until reaching nodes that cover the requested range.
-	 * Note how we always start from the right end of the array. Then on each iteration of the loop, the index variables ‘from’ and ‘to’ are halved. 
+	 * Note how we always start from the right end of the array. Then on each iteration of the loop, the index variables 'from' and 'to' are halved. 
 	 * Thus, on each iteration we go up one level on the tree.
 	 * 
-	 * Note that we only invoke binary operation function (such as Math.max(a, b)) if the indexes ‘from’ and ‘to’ are odd. It’s because if the index is even, then 
-	 * it is the left child node. We don’t need to bother reading it since we’ll get another chance at doing it on the next level up. Of course, this same 
+	 * Note that we only invoke binary operation function (such as Math.max(a, b)) if the indexes 'from' and 'to' are odd. It's because if the index is even, then 
+	 * it is the left child node. We don't need to bother reading it since we'll get another chance at doing it on the next level up. Of course, this same 
 	 * logic applies on the next level up.
 	 * 
 	 * @param from - inclusive

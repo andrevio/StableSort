@@ -396,6 +396,13 @@ class ConvexHullTest {
 		return makePoints(ar);
 	}
 	
+	/**
+	 * shift left all of the coordinates to check if the algorithm still works in a different quadrant
+	 * 
+	 * @param points
+	 * @param amount
+	 * @return
+	 */
 	private List<TestPoint> shiftLeft(List<TestPoint> points, int amount) {
 		List<TestPoint> l = new ArrayList<>(points.size());
 		for (TestPoint point : points) {
@@ -436,6 +443,11 @@ class ConvexHullTest {
 		return l;
 	}
 	
+	/**
+	 * flipst the x and y coordinates
+	 * @param points
+	 * @return
+	 */
 	private List<TestPoint> flip(List<TestPoint> points) {
 		List<TestPoint> l = new ArrayList<>(points.size());
 		for (TestPoint point : points) {
@@ -552,6 +564,6 @@ class ConvexHullTest {
 		ConvexHullTest cht = new ConvexHullTest();
 		cht.run1();
 		cht.run2();
-		System.out.println("ConvesHullTest: Success");
+		System.out.println("ConvexHullTest: Success");
 	}
 }
