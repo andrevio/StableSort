@@ -49,15 +49,14 @@ public class LongestIncreasingSubsequence {
 	 * @return -1 if no pile can host
 	 */
 	int binarySearchHostPileIdx(List<List<Card>> piles, int i) { 
-        int l = 0;
-        int r = piles.size() - 1; 
-        int m = -1;
+        int l = 0; // left
+        int r = piles.size() - 1; // right 
+        int m = -1; // middle
         
         if (piles.isEmpty()) return -1;
         
         while (l <= r) { 
-            m = l + (r - l) / 2; 
-            
+            m = (l + r) / 2; // pick middle
             List<Card> pile = piles.get(m);
             Card c = pile.get(pile.size()-1); // get the top card from this pile
   
