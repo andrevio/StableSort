@@ -56,7 +56,11 @@ public class LongestIncreasingSubsequence {
         if (piles.isEmpty()) return -1;
         
         while (l <= r) { 
-            m = (l + r) / 2; // pick middle
+            /*
+             * Pick the middle. Same as (l + r) / 2 but does not run the risk of integer overflow
+             */
+            m =  l + (r - l) / 2;
+            
             List<Card> pile = piles.get(m);
             Card c = pile.get(pile.size()-1); // get the top card from this pile
   
