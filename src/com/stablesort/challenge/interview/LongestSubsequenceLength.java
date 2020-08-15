@@ -41,6 +41,8 @@ public class LongestSubsequenceLength {
 				if (maxSeqLen < currSeqLen) {
 					maxSeqLen = currSeqLen;
 				}
+			} else if (ar[i-1] == ar[i]) {
+				// dup value, we keep going but don't increment currSeqLen
 			} else {
 				currSeqLen = 1; // reset
 			}
@@ -70,8 +72,8 @@ public class LongestSubsequenceLength {
 		for (int i = 0; i < ar.length; i++) {
 			
 			// check if this is the left-ish end of the array
-			if (!set.contains(ar[i] - 1)) {
-				continue; 
+			if (set.contains(ar[i] - 1)) {
+				continue; // we hit some middle item, so skip it
 			}
 		
 			currSeqLen = 1;
@@ -80,7 +82,7 @@ public class LongestSubsequenceLength {
 			// which is why this solution is O(n)
 			while (set.contains(ar[i] + currSeqLen)) {
 				currSeqLen++;
-				maxSeqLen = Math.max(currSeqLen+1, maxSeqLen);
+				maxSeqLen = Math.max(currSeqLen, maxSeqLen);
 			}
 		}
 		
@@ -127,15 +129,18 @@ public class LongestSubsequenceLength {
 	
 	public static void main(String[] args) {
 		int[] ar1 = Rand.getRandIntAr(10_000_000);
-		//int[] ar1 = new int[]{0, 2, 99, 100, 3, 1, 4, 5, 77}; // 6
+//		int[] ar1 = new int[]{2, 99, 100, 3, 1, 0, 4, 5, 77}; // 6
+//		int[] ar1 = new int[]{3, 6, 4, 4, 6, 1, 5, 1, 7, 8}; // 3
 		int[] ar2 = new int[ar1.length];
 		System.arraycopy(ar1, 0, ar2, 0, ar1.length);
+		
+//		System.out.println(Arrays.toString(ar1));
 		StopWatch sw = new StopWatch();
 		
 		System.out.println("v1=" + maxSeqLenV1(ar1) + ", time=" + sw);
 		System.out.println("v2=" + maxSeqLenV2(ar2) + ", time=" + sw);
 		
-		perfTest();
+//		perfTest();
 		
 	}
 }
