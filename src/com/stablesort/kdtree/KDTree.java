@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Queue;
 
 /**
+ * YouTube tutorial: https://www.youtube.com/watch?v=Glp7THUpGow 
  * https://en.wikipedia.org/wiki/K-d_tree
  * Basic implementation of a KD-Tree for finding the nearest neighbor. KDNode is a typical tree node with left and right pointers, but instead of a
  * single value, it stores a List of values, encapsulated by KDPoint class.
